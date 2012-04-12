@@ -1,0 +1,314 @@
+{
+  "name": "pgbouncer",
+  "description": "Installs and configures pgbouncer",
+  "long_description": "",
+  "maintainer": "Christoph Krybus",
+  "maintainer_email": "ckrybus@googlemail.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0"
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+    "pgbouncer/databases": {
+      "display_name": "PgBouncer databases",
+      "description": "Dictionary consisting of database names with connection info.",
+      "default": {
+      },
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "pgbouncer/userlist": {
+      "display_name": "PgBouncer userlist",
+      "description": "Dictionary consisting of usernames with passwords, used in the userlist.txt file.",
+      "default": {
+      },
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "pgbouncer/logfile": {
+      "display_name": "PgBouncer logfile",
+      "description": "Location of pgbouncer logfile.",
+      "default": "/var/log/postgresql/pgbouncer.log",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "pgbouncer/pidfile": {
+      "display_name": "PgBouncer pidfile",
+      "description": "Location of pgbouncer pidfile.",
+      "default": "/var/run/postgresql/pgbouncer.pid",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "pgbouncer/listen_addr": {
+      "display_name": "PgBouncer listen address",
+      "description": "IP address or * which means all ip-s.",
+      "default": "127.0.0.1",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "pgbouncer/listen_port": {
+      "display_name": "PgBouncer listen port",
+      "description": "Accept connections on the specified port.",
+      "default": "6432",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "pgbouncer/unix_socket_dir": {
+      "display_name": "PgBouncer unix socket dir",
+      "description": "Specify the dir for the unix socket that will be used to listen for incoming connections.",
+      "default": "/var/run/postgresql",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "pgbouncer/auth_type": {
+      "display_name": "PgBouncer authentication type",
+      "description": "Specify the authentication type to use.",
+      "default": "trust",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "pgbouncer/auth_file": {
+      "display_name": "PgBouncer authentication file",
+      "description": "Location of pgbouncer userlist.txt file.",
+      "default": "/etc/pgbouncer/userlist.txt",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "pgbouncer/admin_users": {
+      "display_name": "PgBouncer admin users",
+      "description": "Comma-separated list of users, who are allowed to change settings.",
+      "default": "",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "pgbouncer/stats_users": {
+      "display_name": "PgBouncer stats users",
+      "description": "Comma-separated list of users who are just allowed to use SHOW command.",
+      "default": "",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "pgbouncer/pool_mode": {
+      "display_name": "PgBouncer pool mode",
+      "description": "When server connection is released back to pool.",
+      "default": "session",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "pgbouncer/server_reset_query": {
+      "display_name": "PgBouncer server reset query",
+      "description": "Query for cleaning connection immediately after releasing from client.",
+      "default": "",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "pgbouncer/server_check_query": {
+      "display_name": "PgBouncer server check query",
+      "description": "When taking idle server into use, this query is ran first.",
+      "default": "select 1",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "pgbouncer/server_check_delay": {
+      "display_name": "PgBouncer server check delay",
+      "description": "If server was used more recently that this many seconds ago,                    skip the check query. Value 0 may or may not run in immediately.",
+      "default": "10",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "pgbouncer/max_client_conn": {
+      "display_name": "PgBouncer max client connections",
+      "description": "Total number of clients that can connect.",
+      "default": "100",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "pgbouncer/default_pool_size": {
+      "display_name": "PgBouncer default pool size",
+      "description": "PgBouncer default pool size.",
+      "default": "20",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "pgbouncer/log_connections": {
+      "display_name": "PgBouncer log connections",
+      "description": "PgBouncer log connections.",
+      "default": "1",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "pgbouncer/log_disconnections": {
+      "display_name": "PgBouncer log disconnections",
+      "description": "PgBouncer log disconnections.",
+      "default": "1",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "pgbouncer/log_pooler_errors": {
+      "display_name": "PgBouncer log pooler errors",
+      "description": "Log error messages pooler sends to clients.",
+      "default": "1",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    }
+  },
+  "groupings": {
+  },
+  "recipes": {
+    "pgbouncer": "Installs and configures pgbouncer"
+  },
+  "version": "0.1.0"
+}

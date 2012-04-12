@@ -1,0 +1,3 @@
+<% @node[:pgbouncer][:userlist].each do |user, pass| %>
+"<%= user %>" "<%= pass %>"
+<% end %>

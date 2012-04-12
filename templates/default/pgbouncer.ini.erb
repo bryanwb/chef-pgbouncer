@@ -1,0 +1,197 @@
+;;;
+;;; Configured by Chef. Local changes will be lost.
+;;;
+
+;; database name = connect string
+[databases]
+<% node[:pgbouncer][:databases].each do |dbname, dbinfo| %>
+<%= dbname %> = <%= dbinfo %>
+<% end %>
+
+;; Configuation section
+[pgbouncer]
+
+;;;
+;;; Administrative settings
+;;;
+
+logfile = <%= @node['pgbouncer']['logfile'] %>
+pidfile = <%= @node['pgbouncer']['pidfile'] %>
+
+;;;
+;;; Where to wait for clients
+;;;
+
+; ip address or * which means all ip-s
+listen_addr = <%= @node['pgbouncer']['listen_addr'] %>
+listen_port = <%= @node['pgbouncer']['listen_port'] %>
+unix_socket_dir = <%= @node['pgbouncer']['unix_socket_dir'] %>
+
+;;;
+;;; Authentication settings
+;;;
+
+; any, trust, plain, crypt, md5
+auth_type = <%= @node['pgbouncer']['auth_type'] %>
+auth_file = <%= @node['pgbouncer']['auth_file'] %>
+
+;;;
+;;; Users allowed into database 'pgbouncer'
+;;;
+
+; comma-separated list of users, who are allowed to change settings
+admin_users = <%= @node['pgbouncer']['admin_users'] %>
+
+; comma-separated list of users who are just allowed to use SHOW command
+stats_users = <%= @node['pgbouncer']['stats_users'] %>
+
+;;;
+;;; Pooler personality questions
+;;;
+
+; When server connection is released back to pool:
+;   session      - after client disconnects
+;   transaction  - after transaction finishes
+;   statement    - after statement finishes
+pool_mode = <%= @node['pgbouncer']['pool_mode'] %>
+
+;
+; Query for cleaning connection immediately after releasing from client.
+;
+; Query for 8.3+:
+;   DISCARD ALL;
+;
+; Older versions:
+;   RESET ALL; SET SESSION AUTHORIZATION DEFAULT
+;
+server_reset_query = <%= @node['pgbouncer']['server_reset_query'] %>
+
+;
+; Comma-separated list of parameters to ignore when given
+; in startup packet.  Newer JDBC versions require the
+; extra_float_digits here.
+;
+<% if @node['pgbouncer']['ignore_startup_parameters'] %>
+ignore_startup_parameters = <%= @node['pgbouncer']['ignore_startup_parameters'] %> 
+<% end %>
+;
+; When taking idle server into use, this query is ran first.
+;   SELECT 1
+;
+server_check_query = select 1
+
+; If server was used more recently that this many seconds ago,
+; skip the check query.  Value 0 may or may not run in immidiately.
+<% if @node['pgbouncer']['server_check_delay']  %>
+server_check_delay = <%= @node['pgbouncer']['server_check_delay'] %>
+<% end %>
+
+;;;
+;;; Connection limits
+;;;
+
+; total number of clients that can connect
+max_client_conn = <%= @node['pgbouncer']['max_client_conn'] %>
+default_pool_size = <%= @node['pgbouncer']['default_pool_size'] %>
+
+; how many additional connection to allow in case of trouble
+<% if @node['pgbouncer']['reserve_pool_size'] %>
+reserve_pool_size = <%= @node['pgbouncer']['reserve_pool_size'] %>
+<% end %>
+
+; if a clients needs to wait more than this many seconds, use reserve pool
+<% if @node['pgbouncer']['reserve_pool_timeout'] %>
+reserve_pool_timeout = <%= @node['pgbouncer']['reserve_pool_timeout'] %>
+<% end %>
+
+
+<% if @node['pgbouncer']['log_connections'] %>
+log_connections = <%= @node['pgbouncer']['log_connections'] %>
+<% end %>
+
+<% if @node['pgbouncer']['log_disconnections'] %>
+log_disconnections = <%= @node['pgbouncer']['log_disconnections'] %>
+<% end %>
+
+; log error messages pooler sends to clients
+log_pooler_errors = <%= @node['pgbouncer']['log_pooler_errors'] %>
+
+
+; If off, then server connections are reused in LIFO manner
+;server_round_robin = 0
+
+;;;
+;;; Timeouts
+;;;
+
+;; Close server connection if its been connected longer.
+;server_lifetime = 1200
+
+;; Close server connection if its not been used in this time.
+;; Allows to clean unneccessary connections from pool after peak.
+<% if @node['pgbouncer']['server_idle_timeout'] %>
+server_idle_timeout = <%= @node['pgbouncer']['server_idle_timeout'] %>
+<% end %>
+
+
+
+;; Cancel connection attepmt if server does not answer takes longer.
+;server_connect_timeout = 15
+<% if @node['pgbouncer']['server_connect_timeout'] %>
+server_connect_timeout = <%= @node['pgbouncer']['server_connect_timeout'] %>
+<% end %>
+
+
+;; If server login failed (server_connect_timeout or auth failure)
+;; then wait this many second.
+;server_login_retry = 15
+
+;; Dangerous.  Server connection is closed if query does not return
+;; in this time.  Should be used to survive network problems,
+;; _not_ as statement_timeout. (default: 0)
+;query_timeout = 0
+
+;; Dangerous.  Client connection is closed if no activity in this time.
+;; Should be used to survive network problems. (default: 0)
+;client_idle_timeout = 0
+
+;; Disconnect clients who have not managed to log in after connecting
+;; in this many seconds.
+;client_login_timeout = 60
+
+;; Clean automatically created database entries (via "*") if they
+;; stay unused in this many seconds.
+; autodb_idle_timeout = 3600
+
+;;;
+;;; Low-level tuning options
+;;;
+
+;; buffer for streaming packets
+;pkt_buf = 2048
+
+;; networking options, for info: man 7 tcp
+
+;; linux: notify program about new connection only if there
+;; is also data received.  (Seconds to wait.)
+;; On Linux the default is 45, on other OS'es 0.
+;tcp_defer_accept = 0
+
+;; In-kernel buffer size (linux default: 4096)
+;tcp_socket_buffer = 0
+
+;; whether tcp keepalive should be turned on (0/1)
+;tcp_keepalive = 0
+
+;; following options are linux-specific.
+;; they also require tcp_keepalive=1
+
+;; count of keepaliva packets
+;tcp_keepcnt = 0
+
+;; how long the connection can be idle,
+;; before sending keepalive packets
+;tcp_keepidle = 0
+
+;; The time between individual keepalive probes.
+;tcp_keepintvl = 0
