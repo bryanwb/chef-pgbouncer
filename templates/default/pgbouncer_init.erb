@@ -56,6 +56,10 @@ script_result=0
 start(){
 	BOUNCER_START=$"Starting ${NAME} service: "
 
+        touch "$BOUNCERLOG" || exit 1
+	chown $PGB_USER:$PGB_USER "$BOUNCERLOG"
+	chmod go-rwx "$BOUNCERLOG"
+
 	# Make sure startup-time log file is valid
 	if [ ! -e "$BOUNCERLOG" -a ! -h "$BOUNCERLOG" ]
 	then
