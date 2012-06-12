@@ -20,14 +20,6 @@
 #
 
                  
-template node[:pgbouncer][:auth_file] do
-  source "userlist.txt.erb"
-  owner "root"
-  group "postgres"
-  mode "664"
-  notifies :reload, resources(:service => "pgbouncer")
-end
-
 cookbook_file "/home/postgres/cron_userlist.sh" do
   owner "postgres"
   group "postgres"

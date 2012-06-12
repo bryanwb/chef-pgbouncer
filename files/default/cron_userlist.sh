@@ -7,7 +7,7 @@ psql -p 5432 -U postgres       -qAtX -c 'SELECT $$"$$ || replace( usename, $$"$$
 
 tmp_sum=$(md5sum $tmpfile | awk '{print $1}')
 cur_sum=$(md5sum /etc/pgbouncer/userlist.txt | awk '{print $1}')
-if [  "$tmp_sum" != "$cur_sum" ] ; then
+if [  "$tmp_sum" != "$cur_sum" ] && [ -s "$tmpfile" ] ; then
   cat $tmpfile > /etc/pgbouncer/userlist.txt
   chown postgres:postgres /etc/pgbouncer/userlist.txt
 fi
