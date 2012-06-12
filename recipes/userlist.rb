@@ -41,6 +41,6 @@ cron "pgbouncer" do
   minute "0"
   user "postgres"
   shell "/bin/bash"
-  command "/home/postgres/cron_userlist.sh"
-  mailto ""
+  command "/home/postgres/cron_userlist.sh 2>&1 > /dev/null"
+  action :create
 end

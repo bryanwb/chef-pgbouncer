@@ -23,7 +23,7 @@ pidfile = <%= @node['pgbouncer']['pidfile'] %>
 ;;;
 
 ; ip address or * which means all ip-s
-listen_addr = <%= @node['pgbouncer']['listen_addr'] %>
+listen_addr = <%= @node['ipaddress'] %>
 listen_port = <%= @node['pgbouncer']['listen_port'] %>
 unix_socket_dir = <%= @node['pgbouncer']['unix_socket_dir'] %>
 

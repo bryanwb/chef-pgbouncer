@@ -2,7 +2,7 @@ maintainer       "Christoph Krybus"
 maintainer_email "ckrybus@googlemail.com"
 license          "Apache 2.0"
 description      "Installs and configures pgbouncer"
-version          "0.2.1"
+version          "0.2.4"
 
 recipe "pgbouncer", "Installs and configures pgbouncer"
 
