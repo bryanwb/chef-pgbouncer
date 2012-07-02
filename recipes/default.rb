@@ -39,7 +39,7 @@ end
 
 # EL rpms don't create this directory automatically
 directory "/etc/pgbouncer" do
-  owner "root"
+  owner pgb_user
   group pgb_user
   mode  "774"
 end
@@ -54,7 +54,7 @@ end
 
 template node[:pgbouncer][:additional_config_file] do
   source "pgbouncer.sysconfig.erb"
-  owner "root"
+  owner pgb_user
   group pgb_user
   mode "664"
   notifies :reload, resources(:service => "pgbouncer")
@@ -70,7 +70,7 @@ end
 
 
 service "pgbouncer" do
-  action [:enable, :start]
+  action [:enable]
 end
 
 logrotate_app "pgbouncer" do
