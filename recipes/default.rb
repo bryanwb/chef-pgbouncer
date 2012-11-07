@@ -25,7 +25,8 @@ pgb_user = node['pgbouncer']['user']
 
 case node['platform']
 when "redhat","centos","scientific","fedora","suse"
-  include_recipe "yumrepo::postgresql9"
+  version = node['postgresql']['version'].split('.').join('')
+  include_recipe "yumrepo::postgresql#{version}"
 end
 
 package "pgbouncer" do
