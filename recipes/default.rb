@@ -28,7 +28,7 @@ case node['platform']
 when "redhat","centos","scientific","fedora","suse"
   package "cronie"
   version = node['postgresql']['version'].split('.').join('')
-  include_recipe "yumrepo::postgresql#{version}"
+  include_recipe "yumrepo::postgresql"
 end
 
 package "pgbouncer" do
